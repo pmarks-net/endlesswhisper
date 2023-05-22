@@ -40,7 +40,7 @@ async function setupOffscreenDocument(newExists) {
       chrome.offscreen.createDocument({
         url: url,
         reasons: ['AUDIO_PLAYBACK'],
-        justification: 'Plays almost-silence continuously to keep the sound card awake',
+        justification: 'Continuously plays a very quiet sound, in order to keep your sound card awake',
       });
       chrome.action.setIcon({ path: 'icon128.png' });
     } else {
