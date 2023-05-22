@@ -6,10 +6,16 @@
   "icons": {
     "128": "icon128.png"
   },
+  "action": {
+    "default_icon": {
+      "128": "icon128-gray.png"
+    },
+    "default_title": "Endless Whisper\nClick to enable/disable silence generation"
+  },
   "background": {
     "service_worker": "background.js"
   },
   "permissions": [
-    "offscreen"
+    "offscreen", "storage"
   ]
 }
