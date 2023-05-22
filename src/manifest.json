@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Endless Whisper",
+  "description": "Plays almost-silence continuously to keep the sound card awake.",
+  "version": "1.0",
+  "icons": {
+    "128": "icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "offscreen"
+  ]
+}
