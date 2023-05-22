@@ -1,5 +1,3 @@
-### I'm never gonna pop again.
-
 ![Icon](/src/icon128.png?raw=true)
 
 **Endless Whisper** is a Chrome extension that continuously plays a very quiet sound, in order to keep your sound card awake.
