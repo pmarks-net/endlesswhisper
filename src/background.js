@@ -1,4 +1,7 @@
+const IDLE_SECONDS = 600;  // Let Chrome OS sleep after 10 minutes.
+
 let isSoundOn = null;
+let idleState = null;
 
 const init = (async () => {
   const data = await chrome.storage.local.get(['isSoundOn']);
@@ -7,8 +10,18 @@ const init = (async () => {
   } else {
     isSoundOn = true;  // default state
   }
+  idleState = await new Promise((resolve) => {
+    chrome.idle.queryState(IDLE_SECONDS, resolve);
+  });
   apply();
 })();
+
+chrome.idle.setDetectionInterval(IDLE_SECONDS);
+chrome.idle.onStateChanged.addListener(async (newState) => {
+  idleState = newState;
+  await init;
+  apply();
+});
 
 chrome.action.onClicked.addListener(async (tab) => {
   await init;
@@ -18,8 +31,10 @@ chrome.action.onClicked.addListener(async (tab) => {
 });
 
 async function apply() {
-  if (!(busy && isSoundOn == await busy)) {
-    busy = setupOffscreenDocument(isSoundOn);
+  const on = isSoundOn && (idleState == 'active');
+  console.log("isSoundOn=" + isSoundOn + " idleState=" + idleState + " on=" + on);
+  if (!(busy && on == await busy)) {
+    busy = setupOffscreenDocument(on);
     await busy;
     busy = null;
   }
